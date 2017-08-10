@@ -1,10 +1,10 @@
 <?php
 
+namespace src\Entity;
+
 /**
- * Created by IntelliJ IDEA.
- * User: Asaku
- * Date: 08/08/2017
- * Time: 22:07
+ * Class Post
+ * @package src\Entity
  */
 class Post
 {
@@ -24,7 +24,7 @@ class Post
     private $content;
 
     /**
-     * @var DateTime $dateCreated
+     * @var \DateTime $dateCreated
      */
     private $dateCreated;
 
@@ -35,7 +35,7 @@ class Post
      */
     public function __construct()
     {
-        $this->dateCreated = New DateTime();
+        $this->dateCreated = New \DateTime();
     }
 
     /**
@@ -57,7 +57,7 @@ class Post
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -65,7 +65,7 @@ class Post
     }
 
     /**
-     * @param DateTime $dateCreated
+     * @param \DateTime $dateCreated
      * @return Post
      */
     public function setDateCreated($dateCreated)
