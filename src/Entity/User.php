@@ -166,6 +166,4 @@ class User
     {
         $this->active = $active;
     }
-
-
 }
