@@ -1,4 +1,6 @@
 {
     "name": "asaku/blog",
-    "require": {}
+    "require": {
+        "symfony/yaml": "^3.3"
+    }
 }

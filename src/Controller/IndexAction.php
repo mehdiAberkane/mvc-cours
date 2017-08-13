@@ -8,5 +8,8 @@ namespace src\Controller;
  */
 class IndexAction
 {
-
+    public function __toString()
+    {
+        return "cha marche";
+    }
 }

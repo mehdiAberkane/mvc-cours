@@ -28,6 +28,9 @@ class Post
      */
     private $dateCreated;
 
+    /**
+     * @var User $user
+     */
     private $user;
 
     /**
@@ -111,7 +114,7 @@ class Post
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
@@ -122,7 +125,7 @@ class Post
      * @param mixed $user
      * @return Post
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;
