@@ -6,10 +6,10 @@ namespace Blog\Controller;
  * Class IndexAction
  * @package src\Controller
  */
-class IndexAction implements ActionInterface
+class LostAction implements ActionInterface
 {
     public function renderAction()
     {
-        echo "page index";
+        echo "404 Not Found";
     }
 }

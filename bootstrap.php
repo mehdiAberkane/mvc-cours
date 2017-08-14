@@ -1,25 +1,23 @@
 <?php
 
 require_once ('vendor/autoload.php');
+require_once ('src/Autoloader.php');
 
-include ('src/Controller/IndexAction.php');
+define('DS', DIRECTORY_SEPARATOR);
+
+\Blog\Autoloader::register();
 
 $yaml = new \Symfony\Component\Yaml\Parser();
 
 $value = $yaml->parse( file_get_contents('config/parameters.yml' ) );
 
-var_dump($value);
-
 session_start();
+
 $dbParams = array(
     'driver'   => 'pdo_mysql',
-    'user'     => $value['user'],
-    'password' => $value['password'],
-    'dbname'   => $value['name'],
+    'user'     => $value["db"]['user'],
+    'password' => $value["db"]['password'],
+    'dbname'   => $value["db"]['name'],
 );
 
-
-
-$start = new \src\Controller\IndexAction();
-
-echo $start;
+\Blog\Routing::routing();
