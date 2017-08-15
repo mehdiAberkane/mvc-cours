@@ -6,10 +6,10 @@ namespace Blog\Controller;
  * Class IndexAction
  * @package src\Controller
  */
-class IndexAction extends MasterController implements ActionInterface
+class ContactAction implements ActionInterface
 {
     public function renderAction()
     {
-        $this->render("index");
+        echo "page contact";
     }
 }
