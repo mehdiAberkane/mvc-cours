@@ -12,8 +12,11 @@ class MasterController
     /**
      * @param String $file
      */
-    protected function render($file)
+    protected function render($file, $param = null)
     {
-        require_once "src/Views/" . $file . ".php";
+        $path = "src/Views/" . $file . ".php";
+        $param = $param;
+
+        require_once "src/Views/Common/_base.php";
     }
 }
