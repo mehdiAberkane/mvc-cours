@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Accueil</title>
 </head>
-<body>
-    <nav>
-        <ul>
+<body class="container">
+    <nav class="nav navbar-default">
+        <ul class="nav nav-pills">
             <li><a href="/">Accueil</a></li>
             <li><a href="/contact">Contact</a></li>
         </ul>
