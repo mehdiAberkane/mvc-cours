@@ -2,11 +2,13 @@
 
 namespace src\Entity;
 
+use Blog\Bdd\Table;
+
 /**
  * Class Post
  * @package src\Entity
  */
-class Post
+class Post extends Table
 {
     /**
      * @var Integer $id
@@ -34,11 +36,29 @@ class Post
     private $user;
 
     /**
+     * @var string $tableName
+     */
+    protected $tableName;
+
+    /**
      * Post constructor.
      */
     public function __construct()
     {
+        parent::__construct();
         $this->dateCreated = New \DateTime();
+        $this->tableName = "post";
+    }
+
+    protected function normalize($data)
+    {
+        $class = new Post();
+        $class->setId($data[0]);
+        $class->setTitle($data[1]);
+        $class->setContent($data[2]);
+        $class->setDateCreated($data[3]);
+
+        return $class;
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 namespace Blog\Bdd;
+use Blog\Config;
 
 /**
  * Class MySQL
@@ -21,9 +22,9 @@ class MySQL
     /**
      * @return MySQL
      */
-    public static function init($table, $user, $password){
-        if (!self::$bdd instanceof self::class) {
-            self::$bdd = new Mysql($table, $user, $password);
+    public static function init(){
+        if (is_null(self::$bdd)) {
+            self::$bdd = new Mysql();
         }
 
         return self::$bdd;
@@ -31,14 +32,13 @@ class MySQL
 
     /**
      * MySQL constructor.
-     * @param $table
-     * @param $user
-     * @param $password
      */
-    public function __construct($table, $user, $password)
+    public function __construct()
     {
+        $config = Config::init();
+
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname='.$table.';charset=utf8', $user, $password);
+            $this->pdo = new \PDO('mysql:host=localhost;dbname='. $config->getParam("dbname") .';charset=utf8', $config->getParam("user"), $config->getParam("password"));
         } catch (\PDOException $e){
             throw $e;
         }
@@ -47,5 +47,30 @@ class MySQL
     public function getPDO()
     {
         return $this->pdo;
+    }
+
+    public function getOneById()
+    {
+
+    }
+
+    public function getAll()
+    {
+
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
     }
 }

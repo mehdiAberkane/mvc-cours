@@ -3,6 +3,7 @@
 namespace Blog;
 
 use Blog\Controller\ActionInterface;
+use Blog\Controller\AdminPostAction;
 use Blog\Controller\ContactAction;
 use Blog\Controller\IndexAction;
 use Blog\Controller\LostAction;
@@ -30,6 +31,9 @@ class Routing
                 break;
             case "contact":
                 $action = new ContactAction();
+                break;
+            case "admin/post":
+                $action = new AdminPostAction();
                 break;
         }
 
