@@ -12,7 +12,6 @@ class AdminPostAction extends MasterController implements ActionInterface
 {
     public function renderAction()
     {
-
         $response = [];
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $postEntity = new Post();
@@ -22,7 +21,7 @@ class AdminPostAction extends MasterController implements ActionInterface
             $postEntity->setTitle($title);
             $postEntity->setContent($content);
 
-            $response[] = $postEntity->update();
+            $response[] = $postEntity->create();
         }
 
         $this->render("admin/post", $response);

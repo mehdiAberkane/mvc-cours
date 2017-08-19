@@ -2,6 +2,8 @@
 
 namespace Blog\Bdd;
 
+use League\Event\Emitter;
+use League\Event\Event;
 use src\Entity\Post;
 
 class Table
@@ -29,7 +31,11 @@ class Table
         $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName);
         $data->execute();
 
-        return $this->normalize($data->fetch());
+        $posts = [];
+        foreach ($data->fetchAll() as $post)
+            $posts[] = $this->normalize($post);
+
+        return $posts;
     }
 
     /**
@@ -37,11 +43,20 @@ class Table
      */
     public function create()
     {
-        $data = $this->MySQL->getPDO()->prepare("INSERT INTO ".$this->tableName."(title, content) VALUES (:title, :content)");
+        $emitter = new Emitter();
+
+        $emitter->addListener('create', function (Event $event) {
+            $this->createdEvent();
+        });
+
+        $emitter->emit("create");
+
+        $data = $this->MySQL->getPDO()->prepare("INSERT INTO ".$this->tableName."(title, content, slug) VALUES (:title, :content, :slug)");
 
         $data->execute([
             "title" => $this->getTitle(),
             "content" => $this->getContent(),
+            "slug" => $this->getSlug(),
         ]);
 
         return "Post créer";

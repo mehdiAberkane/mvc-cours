@@ -1,7 +1,7 @@
 <?php
 
 namespace Blog\Controller;
-use Blog\Bdd\MySQL;
+
 use src\Entity\Post;
 
 /**
@@ -14,6 +14,8 @@ class IndexAction extends MasterController implements ActionInterface
     {
         $postEntity = new Post();
 
-        $this->render("index");
+        $posts = $postEntity->getAll();
+
+        $this->render("index", ["posts" => $posts, "test" => "toto"]);
     }
 }

@@ -12,10 +12,13 @@ class MasterController
     /**
      * @param String $file
      */
-    protected function render($file, $param = null)
+    protected function render($file, $datas = array())
     {
         $path = "src/Views/" . $file . ".php";
-        $param = $param;
+
+        foreach ($datas as $key => $data){
+                ${$key} = $data;
+        }
 
         require_once "src/Views/Common/_base.php";
     }

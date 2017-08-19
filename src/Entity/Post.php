@@ -21,6 +21,11 @@ class Post extends Table
     private $title;
 
     /**
+     * @var String $slug
+     */
+    private $slug;
+
+    /**
      * @var String $content
      */
     private $content;
@@ -48,6 +53,21 @@ class Post extends Table
         parent::__construct();
         $this->dateCreated = New \DateTime();
         $this->tableName = "post";
+    }
+
+    protected function generateSlug()
+    {
+        $this->setSlug("slug");
+    }
+
+    protected function createdEvent()
+    {
+        $this->generateSlug();
+    }
+
+    protected function updatedEvent()
+    {
+        $this->generateSlug();
     }
 
     protected function normalize($data)
@@ -149,5 +169,21 @@ class Post extends Table
     {
         $this->user = $user;
         return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param String $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

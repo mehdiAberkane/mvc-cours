@@ -1,6 +1,10 @@
 {
     "name": "asaku/blog",
     "require": {
-        "symfony/yaml": "^3.3"
+        "symfony/yaml": "^3.3",
+        "league/event": "^2.1"
+    },
+    "config": {
+        "secure-http": false
     }
 }
