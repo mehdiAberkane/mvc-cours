@@ -4,6 +4,7 @@ namespace Blog;
 
 use Blog\Controller\ActionInterface;
 use Blog\Controller\AdminPostAction;
+use Blog\Controller\ArticleAction;
 use Blog\Controller\ContactAction;
 use Blog\Controller\IndexAction;
 use Blog\Controller\LostAction;
@@ -19,15 +20,19 @@ class Routing
         $url = $_SERVER["REQUEST_URI"];
         $action = "";
 
+        $className = substr($url, 1);
+
         if ($url == '' || $url == '/') {
             $action = new IndexAction();
+            $action->renderAction();
         }
-
-        $className = substr($url, 1);
 
         switch ($className) {
             case "index":
                 $action = new IndexAction();
+                break;
+            case strpos($className, "article"):
+                $action = new ArticleAction();
                 break;
             case "contact":
                 $action = new ContactAction();

@@ -10,7 +10,7 @@
             foreach ($posts as $post) {
                 echo
                 "<article class='row'>
-                    <h2><a href='".$post->getSlug()."'>".$post->getTitle()."</a></h2>
+                    <h2><a href='/article/".$post->getSlug()."'>".$post->getTitle()."</a></h2>
                     <p>".$post->getContent()."</p>
                     <time datetime='".$post->getDateCreated()."'>".$post->getDateCreated()."</time>
                 </article>";

@@ -22,4 +22,14 @@ class MasterController
 
         require_once "src/Views/Common/_base.php";
     }
+
+    /**
+     * @return array
+     */
+    protected function getUrl()
+    {
+        $urls = preg_split("#/#", $_SERVER["REQUEST_URI"]);
+
+        return $urls;
+    }
 }

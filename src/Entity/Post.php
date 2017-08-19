@@ -57,7 +57,8 @@ class Post extends Table
 
     protected function generateSlug()
     {
-        $this->setSlug("slug");
+        $slug = $this->slugit($this->getTitle());
+        $this->setSlug($slug);
     }
 
     protected function createdEvent()
@@ -73,10 +74,11 @@ class Post extends Table
     protected function normalize($data)
     {
         $class = new Post();
-        $class->setId($data[0]);
-        $class->setTitle($data[1]);
-        $class->setContent($data[2]);
-        $class->setDateCreated($data[3]);
+        $class->setId($data["id"]);
+        $class->setTitle($data["title"]);
+        $class->setSlug($data["slug"]);
+        $class->setContent($data["content"]);
+        $class->setDateCreated($data["date_created"]);
 
         return $class;
     }
