@@ -51,12 +51,15 @@ class User extends TableUser implements TableInterface
         $this->tableName = "user";
     }
 
+    /**
+     * @param $pseudo
+     * @param $password
+     * @return bool
+     */
     public function login($pseudo, $password)
     {
         $user = $this->getOne("pseudo", $pseudo);
         if ($user instanceof User) {
-
-
             if ($user->encryptePassword($password) == $user->getPassword()) {
                 $_SESSION['login'] = $user->getPseudo();
                 $_SESSION['id'] = $user->getId();
