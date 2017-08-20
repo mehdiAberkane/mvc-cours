@@ -2,13 +2,13 @@
 
 namespace src\Entity;
 
-use Blog\Bdd\Table;
+use Blog\Bdd\TablePost;
 
 /**
  * Class Post
  * @package src\Entity
  */
-class Post extends Table
+class Post extends TablePost
 {
     /**
      * @var Integer $id
@@ -53,34 +53,6 @@ class Post extends Table
         parent::__construct();
         $this->dateCreated = New \DateTime();
         $this->tableName = "post";
-    }
-
-    protected function generateSlug()
-    {
-        $slug = $this->slugit($this->getTitle());
-        $this->setSlug($slug);
-    }
-
-    protected function createdEvent()
-    {
-        $this->generateSlug();
-    }
-
-    protected function updatedEvent()
-    {
-        $this->generateSlug();
-    }
-
-    protected function normalize($data)
-    {
-        $class = new Post();
-        $class->setId($data["id"]);
-        $class->setTitle($data["title"]);
-        $class->setSlug($data["slug"]);
-        $class->setContent($data["content"]);
-        $class->setDateCreated($data["date_created"]);
-
-        return $class;
     }
 
     /**

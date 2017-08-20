@@ -4,9 +4,11 @@ namespace Blog;
 
 use Blog\Controller\ActionInterface;
 use Blog\Controller\AdminPostAction;
+use Blog\Controller\AdminUserAction;
 use Blog\Controller\ArticleAction;
 use Blog\Controller\ContactAction;
 use Blog\Controller\IndexAction;
+use Blog\Controller\LoginAction;
 use Blog\Controller\LostAction;
 
 /**
@@ -39,6 +41,12 @@ class Routing
                 break;
             case "admin/post":
                 $action = new AdminPostAction();
+                break;
+            case "admin/user":
+                $action = new AdminUserAction();
+                break;
+            case "admin/login":
+                $action = new LoginAction();
                 break;
         }
 

@@ -4,14 +4,40 @@ namespace Blog\Bdd;
 
 use League\Event\Emitter;
 use League\Event\Event;
-use src\Entity\Post;
+use src\Entity\User;
 
-class Table
+class TableUser implements TableInterface
 {
     /**
      * @var MySQL
      */
     private $MySQL;
+
+    public function createdEvent()
+    {
+        $this->setPassword($this->encryptePassword($this->getPassword()));
+    }
+
+    public function updatedEvent()
+    {
+
+    }
+
+    /**
+     * @param $data
+     * @return User
+     */
+    public function normalize($data)
+    {
+        $class = new User();
+        $class->setId($data["id"]);
+        $class->setPseudo($data["pseudo"]);
+        $class->setPassword($data["password"]);
+        $class->setSalt($data["salt"]);
+        $class->setActive($data["active"]);
+
+        return $class;
+    }
 
     /**
      * @param $field
@@ -46,11 +72,11 @@ class Table
         $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName);
         $data->execute();
 
-        $posts = [];
-        foreach ($data->fetchAll() as $post)
-            $posts[] = $this->normalize($post);
+        $users = [];
+        foreach ($data->fetchAll() as $user)
+            $users[] = $this->normalize($user);
 
-        return $posts;
+        return $users;
     }
 
     /**
@@ -65,28 +91,20 @@ class Table
         });
 
         $emitter->emit("create");
-
-        $data = $this->MySQL->getPDO()->prepare("INSERT INTO ".$this->tableName."(title, content, slug) VALUES (:title, :content, :slug)");
+        $data = $this->MySQL->getPDO()->prepare("INSERT INTO ".$this->tableName."(pseudo, password, salt) VALUES (:pseudo, :password, :salt)");
 
         $data->execute([
-            "title" => $this->getTitle(),
-            "content" => $this->getContent(),
-            "slug" => $this->getSlug(),
+            "pseudo" => $this->getPseudo(),
+            "password" => $this->getPassword(),
+            "salt" => $this->getSalt(),
         ]);
 
-        return "Post créer";
+        return "User créer";
     }
 
     public function update()
     {
-        $data = $this->MySQL->getPDO()->prepare("UPDATE ".$this->tableName." SET title = :title, content = :content WHERE id = :id");
-        $data->execute([
-            "id" => 2,
-            "title" => $this->getTitle(),
-            "content" => $this->getContent(),
-        ]);
 
-        return "Post modifier";
     }
 
     public function delete()
@@ -94,24 +112,11 @@ class Table
         $data = $this->MySQL->getPDO()->prepare("DELETE FROM ".$this->tableName." WHERE id = :id");
         $data->execute(["id" => $this->getId()]);
 
-        return "post delete";
+        return "user delete";
     }
 
     public function __construct()
     {
         $this->MySQL = MySQL::init();
-    }
-
-    /**
-     * @param $str
-     * @return mixed|string
-     */
-    protected function slugit($str) {
-        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-        $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-        $clean = strtolower(trim($clean, '-'));
-        $clean = preg_replace("/[\/_|+ -]+/", "-", $clean);
-
-        return $clean;
     }
 }

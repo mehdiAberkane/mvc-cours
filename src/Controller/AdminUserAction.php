@@ -14,16 +14,21 @@ class AdminUserAction extends MasterController implements ActionInterface
     {
         $response = [];
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $postEntity = new User();
-            $title = isset($_REQUEST["title"]) ? $_REQUEST["title"] : "";
-            $content = isset($_REQUEST["content"]) ? $_REQUEST["content"] : "";
+            $userEntity = new User();
+            $pseudo = isset($_REQUEST["pseudo"]) ? $_REQUEST["pseudo"] : "";
+            $password = isset($_REQUEST["password_1"]) ? $_REQUEST["password_1"] : "";
+            $password2 = isset($_REQUEST["password_2"]) ? $_REQUEST["password_2"] : "";
 
-            $postEntity->setTitle($title);
-            $postEntity->setContent($content);
+            if ($password == $password2 && strlen($password) > 1) {
+                $userEntity->setPseudo($pseudo);
+                $userEntity->setPassword($password);
 
-            $response[] = $postEntity->create();
+                $response[] = $userEntity->create();
+            } else {
+                $response[] = "Les mots de passe ne correspondent pas.";
+            }
         }
 
-        $this->render("admin/post", $response);
+        $this->render("admin/user", $response);
     }
 }

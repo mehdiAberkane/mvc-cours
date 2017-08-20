@@ -1,12 +1,14 @@
 <?php
 
 namespace src\Entity;
+use Blog\Bdd\TableInterface;
+use Blog\Bdd\TableUser;
 
 /**
- * Class Post
+ * Class User
  * @package src\Entity
  */
-class User
+class User extends TableUser implements TableInterface
 {
     /**
      * @var Integer $id
@@ -14,12 +16,12 @@ class User
     private $id;
 
     /**
-     * @var String $title
+     * @var String $pseudo
      */
     private $pseudo;
 
     /**
-     * @var String $content
+     * @var String $password
      */
     private $password;
 
@@ -29,28 +31,45 @@ class User
     private $salt;
 
     /**
-     * @var \DateTime $dateCreated
-     */
-    private $dateCreated;
-
-    /**
-     * @var String $role
-     */
-    private $role;
-
-    /**
      * @var String $active
      */
     private $active;
+
+    /**
+     * @var string $tableName
+     */
+    protected $tableName;
 
     /**
      * Post constructor.
      */
     public function __construct()
     {
-        $this->dateCreated = New \DateTime();
+        parent::__construct();
         $this->active = true;
         $this->salt = uniqid(mt_rand(), true);
+        $this->tableName = "user";
+    }
+
+    public function login($pseudo, $password)
+    {
+        $user = $this->getOne("pseudo", $pseudo);
+        if ($user instanceof User) {
+
+
+            if ($user->encryptePassword($password) == $user->getPassword()) {
+                $_SESSION['login'] = $user->getPseudo();
+                $_SESSION['id'] = $user->getId();
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected function encryptePassword($password)
+    {
+        return hash("ripemd160", md5($this->salt.$password));
     }
 
     /**
@@ -117,38 +136,6 @@ class User
     public function setSalt($salt)
     {
         $this->salt = $salt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateCreated()
-    {
-        return $this->dateCreated;
-    }
-
-    /**
-     * @param \DateTime $dateCreated
-     */
-    public function setDateCreated($dateCreated)
-    {
-        $this->dateCreated = $dateCreated;
-    }
-
-    /**
-     * @return String
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param String $role
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
     }
 
     /**
