@@ -1,6 +1,7 @@
 <?php
 
 namespace Blog\Bdd;
+
 use Blog\Config;
 
 /**
@@ -47,30 +48,5 @@ class MySQL
     public function getPDO()
     {
         return $this->pdo;
-    }
-
-    public function getOneById()
-    {
-
-    }
-
-    public function getAll()
-    {
-
-    }
-
-    public function create()
-    {
-
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-
     }
 }
