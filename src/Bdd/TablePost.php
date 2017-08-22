@@ -6,15 +6,19 @@ use League\Event\Emitter;
 use League\Event\Event;
 use src\Entity\Post;
 
+/**
+ * Class TablePost
+ * @package Blog\Bdd
+ */
 class TablePost implements TableInterface
 {
     /**
-     * @var MySQL
+     * @var MySQL $MySQL
      */
     private $MySQL;
 
     /**
-     * @param $data
+     * @param array $data
      * @return Post
      */
     public function normalize($data)
@@ -111,8 +115,9 @@ class TablePost implements TableInterface
     public function update()
     {
         $data = $this->MySQL->getPDO()->prepare("UPDATE ".$this->tableName." SET title = :title, content = :content WHERE id = :id");
+
         $data->execute([
-            "id" => 2,
+            "id" => $this->getId(),
             "title" => $this->getTitle(),
             "content" => $this->getContent(),
         ]);
@@ -128,6 +133,9 @@ class TablePost implements TableInterface
         return "post delete";
     }
 
+    /**
+     * TablePost constructor.
+     */
     public function __construct()
     {
         $this->MySQL = MySQL::init();
