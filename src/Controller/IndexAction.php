@@ -2,6 +2,7 @@
 
 namespace Blog\Controller;
 
+use src\Entity\Log;
 use src\Entity\Post;
 
 /**
@@ -12,6 +13,10 @@ class IndexAction extends MasterController implements ActionInterface
 {
     public function renderAction()
     {
+        $t = new Log();
+
+        $t->writeAccessLog("warning", "yolo");
+
         $postEntity = new Post();
 
         $posts = $postEntity->getAll();

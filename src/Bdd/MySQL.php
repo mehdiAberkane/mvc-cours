@@ -39,7 +39,7 @@ class MySQL
         $config = Config::init();
 
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname='. $config->getParam("dbname") .';charset=utf8', $config->getParam("user"), $config->getParam("password"));
+            $this->pdo = new \PDO('mysql:host=127.0.0.1;port=8889;dbname='. $config->getParam("dbname") .';charset=utf8', $config->getParam("user"), $config->getParam("password"));
 
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e){
