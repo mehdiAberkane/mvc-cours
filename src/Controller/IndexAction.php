@@ -20,7 +20,7 @@ class IndexAction extends MasterController implements ActionInterface
         $postEntity = new Post();
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $search = "toto";
+            $search = isset($_REQUEST["search"]) ? $_REQUEST["search"] : "";
             $posts = $postEntity->findBy("title", $search);
         } else {
             $posts = $postEntity->getAll();
