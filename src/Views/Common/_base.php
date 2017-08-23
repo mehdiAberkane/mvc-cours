@@ -13,7 +13,19 @@
         <ul class="nav nav-pills">
             <li><a href="/">Accueil</a></li>
             <li><a href="/contact">Contact</a></li>
+
         </ul>
+        <div>
+            <form action="" method="post" class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Search for..." aria-label="Search for...">
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-secondary">Go!</input>
+                      </span>
+                </div>
+            </form>
+        </div>
+
     </nav>
     <?php include $path; ?>
 

@@ -24,6 +24,7 @@ class TablePost implements TableInterface
     public function normalize($data)
     {
         $class = new Post();
+
         $class->setId($data["id"]);
         $class->setTitle($data["title"]);
         $class->setSlug($data["slug"]);
@@ -62,6 +63,24 @@ class TablePost implements TableInterface
 
 
         return $this->normalize($data->fetch());
+    }
+
+    /**
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
+    public function findBy($field, $value)
+    {
+        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE title LIKE CONCAT('%',:search,'%')");
+        $data->bindParam(":search", $value);
+        $data->execute();
+
+        $posts = [];
+        foreach ($data->fetchAll() as $post)
+            $posts[] = $this->normalize($post);
+
+        return $posts;
     }
 
     /**
