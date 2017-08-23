@@ -5,3 +5,5 @@
 config/parameters.yml
 tmp/logs/*
 tmp/cache/*
+tmp/logs/access.log
+tmp/logs/errors.log

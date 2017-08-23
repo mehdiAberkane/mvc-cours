@@ -8,7 +8,6 @@ namespace src\Entity;
  */
 class Log
 {
-
     /**
      * @var string $access
      */

@@ -77,6 +77,9 @@ class TablePost implements TableInterface
         return $this->normalize($data->fetch());
     }
 
+    /**
+     * @return array
+     */
     public function getAll()
     {
         $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName);
@@ -112,6 +115,9 @@ class TablePost implements TableInterface
         return "Post créer";
     }
 
+    /**
+     * @return string
+     */
     public function update()
     {
         $data = $this->MySQL->getPDO()->prepare("UPDATE ".$this->tableName." SET title = :title, content = :content WHERE id = :id");
@@ -125,6 +131,9 @@ class TablePost implements TableInterface
         return "Post modifier";
     }
 
+    /**
+     * @return string
+     */
     public function delete()
     {
         $data = $this->MySQL->getPDO()->prepare("DELETE FROM ".$this->tableName." WHERE id = :id");
