@@ -72,7 +72,7 @@ class TablePost implements TableInterface
      */
     public function findBy($field, $value)
     {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE title LIKE CONCAT('%',:search,'%')");
+        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE ".$field." LIKE CONCAT('%',:search,'%')");
         $data->bindParam(":search", $value);
         $data->execute();
 
