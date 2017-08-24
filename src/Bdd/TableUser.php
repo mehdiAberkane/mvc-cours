@@ -6,22 +6,16 @@ use League\Event\Emitter;
 use League\Event\Event;
 use src\Entity\User;
 
-class TableUser implements TableInterface
+/**
+ * Class TableUser
+ * @package Blog\Bdd
+ */
+class TableUser extends Table implements TableInterface
 {
     /**
      * @var MySQL
      */
-    private $MySQL;
-
-    public function createdEvent()
-    {
-        $this->setPassword($this->encryptePassword($this->getPassword()));
-    }
-
-    public function updatedEvent()
-    {
-
-    }
+    protected $MySQL;
 
     /**
      * @param $data
@@ -37,46 +31,6 @@ class TableUser implements TableInterface
         $class->setActive($data["active"]);
 
         return $class;
-    }
-
-    /**
-     * @param $field
-     * @param $value
-     * @return mixed
-     */
-    public function getOne($field, $value)
-    {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE ".$field." = (:".$field.") LIMIT 1");
-        $data->bindParam(":".$field, $value);
-        $data->execute();
-
-
-        return $this->normalize($data->fetch());
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getOneById($id)
-    {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE id = (:id) LIMIT 1");
-        $data->bindParam(":id", $id, \PDO::PARAM_INT);
-        $data->execute();
-
-        return $this->normalize($data->fetch());
-    }
-
-    public function getAll()
-    {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName);
-        $data->execute();
-
-        $users = [];
-        foreach ($data->fetchAll() as $user)
-            $users[] = $this->normalize($user);
-
-        return $users;
     }
 
     /**
@@ -118,5 +72,15 @@ class TableUser implements TableInterface
     public function __construct()
     {
         $this->MySQL = MySQL::init();
+    }
+
+    public function createdEvent()
+    {
+        $this->setPassword($this->encryptePassword($this->getPassword()));
+    }
+
+    public function updatedEvent()
+    {
+
     }
 }

@@ -10,12 +10,12 @@ use src\Entity\Post;
  * Class TablePost
  * @package Blog\Bdd
  */
-class TablePost implements TableInterface
+class TablePost extends Table implements TableInterface
 {
     /**
      * @var MySQL $MySQL
      */
-    private $MySQL;
+    protected $MySQL;
 
     /**
      * @param array $data
@@ -48,67 +48,6 @@ class TablePost implements TableInterface
     public function updatedEvent()
     {
         $this->generateSlug();
-    }
-
-    /**
-     * @param $field
-     * @param $value
-     * @return mixed
-     */
-    public function getOne($field, $value)
-    {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE ".$field." = (:".$field.") LIMIT 1");
-        $data->bindParam(":".$field, $value);
-        $data->execute();
-
-
-        return $this->normalize($data->fetch());
-    }
-
-    /**
-     * @param $field
-     * @param $value
-     * @return mixed
-     */
-    public function findBy($field, $value)
-    {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE ".$field." LIKE CONCAT('%',:search,'%')");
-        $data->bindParam(":search", $value);
-        $data->execute();
-
-        $posts = [];
-        foreach ($data->fetchAll() as $post)
-            $posts[] = $this->normalize($post);
-
-        return $posts;
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getOneById($id)
-    {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName." WHERE id = (:id) LIMIT 1");
-        $data->bindParam(":id", $id, \PDO::PARAM_INT);
-        $data->execute();
-
-        return $this->normalize($data->fetch());
-    }
-
-    /**
-     * @return array
-     */
-    public function getAll()
-    {
-        $data = $this->MySQL->getPDO()->prepare("SELECT * FROM ".$this->tableName);
-        $data->execute();
-
-        $posts = [];
-        foreach ($data->fetchAll() as $post)
-            $posts[] = $this->normalize($post);
-
-        return $posts;
     }
 
     /**
@@ -169,16 +108,4 @@ class TablePost implements TableInterface
         $this->MySQL = MySQL::init();
     }
 
-    /**
-     * @param $str
-     * @return mixed|string
-     */
-    protected function slugit($str) {
-        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-        $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-        $clean = strtolower(trim($clean, '-'));
-        $clean = preg_replace("/[\/_|+ -]+/", "-", $clean);
-
-        return $clean;
-    }
 }
