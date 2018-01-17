@@ -1,10 +1,15 @@
 {
-    "name": "asaku/blog",
+    "name": "Asaku/blog",
     "require": {
         "symfony/yaml": "^3.3",
         "league/event": "^2.1"
     },
     "config": {
         "secure-http": false
+    },
+    "scripts": {
+        "post-install-cmd": [
+        	"php config/"
+        ]
     }
 }
