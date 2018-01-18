@@ -8,8 +8,11 @@
         "secure-http": false
     },
     "scripts": {
+        "mvc-script":[
+            "php script/parameters.php"
+        ],
         "post-install-cmd": [
-        	"php config/"
+        	"@mvc-script"
         ]
     }
 }

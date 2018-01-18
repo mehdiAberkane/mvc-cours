@@ -14,9 +14,7 @@ $value = $yaml->parse(file_get_contents('config/parameters.yml'));
 
 foreach ($value["parameters"] as $key => $val) {
     echo "\033[0;36m".$key."\033[1;33m[".$val."]: \033[0m";
-    $reponse = fgets(STDIN);
-    if (strlen($reponse) > 1)
-        $value["parameters"][$key] = $reponse;
+    echo "\n";
 
 }
 

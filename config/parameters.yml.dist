@@ -1,6 +1,6 @@
 parameters:
   user: root
-  password: root
+  password: ~
   port: ~
   host: 127.0.0.1
   name: mvc
