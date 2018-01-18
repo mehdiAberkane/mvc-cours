@@ -16,9 +16,9 @@ session_start();
 
 $dbParams = array(
     'driver'   => 'pdo_mysql',
-    'user'     => $value["db"]['user'],
-    'password' => $value["db"]['password'],
-    'dbname'   => $value["db"]['name'],
+    'user'     => $value["parameters"]['user'],
+    'password' => $value["parameters"]['password'],
+    'dbname'   => $value["parameters"]['name'],
 );
 
 \Blog\Routing::routing();

@@ -1,6 +1,6 @@
-db:
+parameters:
   user: root
-  password: ~
+  password: root
   port: ~
   host: 127.0.0.1
   name: mvc

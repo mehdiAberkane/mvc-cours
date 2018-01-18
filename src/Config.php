@@ -39,13 +39,13 @@ class Config
     {
         $yaml = new Parser();
 
-        $value = $yaml->parse( file_get_contents('config/parameters.yml' ) );
+        $value = $yaml->parse(file_get_contents('config/parameters.yml' ));
 
         $dbParams = array(
             'driver'   => 'pdo_mysql',
-            'user'     => $value["db"]['user'],
-            'password' => $value["db"]['password'],
-            'dbname'   => $value["db"]['name'],
+            'user'     => $value["parameters"]['user'],
+            'password' => $value["parameters"]['password'],
+            'dbname'   => $value["parameters"]['name'],
         );
 
         $this->params = $dbParams;
