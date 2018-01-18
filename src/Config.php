@@ -21,7 +21,6 @@ class Config
     private $params;
 
     /**
-     * @param $params
      * @return array|Config
      */
     public static function init(){
@@ -46,6 +45,8 @@ class Config
             'user'     => $value["parameters"]['user'],
             'password' => $value["parameters"]['password'],
             'dbname'   => $value["parameters"]['name'],
+            'host'     => $value["parameters"]['host'],
+            'port'     => $value["parameters"]['port'],
         );
 
         $this->params = $dbParams;

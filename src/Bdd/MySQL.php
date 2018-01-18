@@ -23,7 +23,7 @@ class MySQL
     /**
      * @return MySQL
      */
-    public static function init(){
+    public static function init() {
         if (is_null(self::$bdd)) {
             self::$bdd = new Mysql();
         }
@@ -39,7 +39,13 @@ class MySQL
         $config = Config::init();
 
         try {
-            $this->pdo = new \PDO('mysql:host=127.0.0.1;port=8889;dbname='. $config->getParam("dbname") .';charset=utf8', $config->getParam("user"), $config->getParam("password"));
+            $this->pdo = new \PDO(
+                'mysql:host='.$config->getParam("host").'
+                ;port='.$config->getParam("port").'
+                ;dbname='. $config->getParam("dbname") .'
+                ;charset=utf8',
+                $config->getParam("user"),
+                $config->getParam("password"));
 
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e){
