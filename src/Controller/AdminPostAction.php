@@ -12,6 +12,7 @@ class AdminPostAction extends MasterController implements ActionInterface
 {
     public function renderAction()
     {
+	if (isset($_SESSION["login"])){
         $response = [];
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $postEntity = new Post();
@@ -24,6 +25,9 @@ class AdminPostAction extends MasterController implements ActionInterface
             $response[] = $postEntity->create();
         }
 
-        $this->render("admin/post", $response);
+	$this->render("admin/post", $response);
+	}else {
+		die("Not Autorized");
+	}
     }
 }

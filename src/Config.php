@@ -48,7 +48,6 @@ class Config
             'host'     => $value["parameters"]['host'],
             'port'     => $value["parameters"]['port'],
         );
-
         $this->params = $dbParams;
     }
 

@@ -27,7 +27,7 @@ class Routing
         if ($url == '' || $url == '/') {
             $action = new IndexAction();
             $action->renderAction();
-        }
+	}
 
         switch ($className) {
             case "index":

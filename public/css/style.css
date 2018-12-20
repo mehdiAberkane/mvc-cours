@@ -1,3 +1,12 @@
 body {
-    background-color: darkgray;
+    background-color: skyblue;
+}
+
+nav {
+	font-size: 30px;
+	padding-bottom: 15px;
+	margin-bottom: 20px;
+}
+.btn-secondary {
+	background-color: pink;
 }

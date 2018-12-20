@@ -1,4 +1,6 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
 
 require_once ('vendor/autoload.php');
 require_once ('src/Autoloader.php');

@@ -27,9 +27,8 @@ class Autoloader
         array_shift($paths);
         $path = implode(DS, $paths);
 
-        $file = $name.'.php';
-        $filepath = dirname(__FILE__).DS.strtolower($path).DS.$file;
-
+	$file = $name.'.php';
+        $filepath = dirname(__FILE__).DS.$path.DS.$file;
 
         require $filepath;
     }

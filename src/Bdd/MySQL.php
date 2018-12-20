@@ -38,16 +38,16 @@ class MySQL
     {
         $config = Config::init();
 
-        try {
+	try {
+	#$db = new \PDO('mysql:host=localhost;dbname=mvc;charset=UTF-8', 'root', null);
+
             $this->pdo = new \PDO(
                 'mysql:host='.$config->getParam("host").'
                 ;port='.$config->getParam("port").'
-                ;dbname='. $config->getParam("dbname") .'
-                ;charset=utf8',
-                $config->getParam("user"),
-                $config->getParam("password"));
+                ;dbname=mvc;charset=utf8','chevre',
+                'chevre');
 
-            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+         #   $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e){
             throw $e;
         }

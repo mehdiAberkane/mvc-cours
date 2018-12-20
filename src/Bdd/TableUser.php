@@ -45,7 +45,9 @@ class TableUser extends Table implements TableInterface
         });
 
         $emitter->emit("create");
-        $data = $this->MySQL->getPDO()->prepare("INSERT INTO ".$this->tableName."(pseudo, password, salt) VALUES (:pseudo, :password, :salt)");
+	$data = $this->MySQL->getPDO()->prepare("INSERT INTO ".$this->tableName."(pseudo, password, salt) VALUES (:pseudo, :password, :salt)");
+
+
 
         $data->execute([
             "pseudo" => $this->getPseudo(),
