@@ -55,6 +55,9 @@ class TablePost extends Table implements TableInterface
      */
     public function create()
     {
+        $create = $this->MySQL->getPDO()->prepare("CREATE table if not exist ".$this->tableName."(ID title, content varchar, slug varchar, )");
+
+
         $emitter = new Emitter();
 
         $emitter->addListener('create', function (Event $event) {

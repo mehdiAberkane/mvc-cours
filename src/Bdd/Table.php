@@ -12,8 +12,11 @@ class Table
     public function getOne($field, $value)
     {
         $data = $this->MySQL->getPDO()->query("SELECT * FROM ".$this->tableName." WHERE ".$field." = '".$value."' LIMIT 1");
+        if ($data) {
+            return $this->normalize($data->fetch());
+        }
 
-        return $this->normalize($data->fetch());
+        return null;
     }
 
     /**

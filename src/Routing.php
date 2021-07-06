@@ -25,6 +25,7 @@ class Routing
         $className = substr($url, 1);
 
         if ($url == '' || $url == '/') {
+            
             $action = new IndexAction();
             $action->renderAction();
 	}
@@ -52,7 +53,7 @@ class Routing
 
         if (!$action instanceof ActionInterface)
             $action = new LostAction();
-
+        
         $action->renderAction();
     }
 }
